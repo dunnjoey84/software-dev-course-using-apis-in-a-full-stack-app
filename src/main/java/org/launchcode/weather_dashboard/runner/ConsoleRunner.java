@@ -57,7 +57,7 @@ public class ConsoleRunner implements CommandLineRunner {
     }
 
     private void showMenu() {
-        System.out.println("\n=== Weather Dashboard ===");
+        System.out.println("\n Weather Dashboard ");
         System.out.println("1. Check London Weather");
         System.out.println("2. Check Paris Weather");
         System.out.println("3. Check Tokyo Weather");
@@ -104,15 +104,15 @@ public class ConsoleRunner implements CommandLineRunner {
 
     private void displayWeather(WeatherData weather) {
         System.out.println("\nCurrent Weather in " + weather.getName() + ":");
-        System.out.println("Temperature: " + weather.getMain().getTemp() + "°C");
-        System.out.println("Feels like: " + weather.getMain().getFeelsLike() + "°C");
+        System.out.println("Temperature: " + weather.getMain().getTemp() + "°F");
+        System.out.println("Feels like: " + weather.getMain().getFeelsLike() + "°F");
         System.out.println("Conditions: " + weather.getWeather()[0].getDescription());
         System.out.println("Humidity: " + weather.getMain().getHumidity() + "%");
         System.out.println("Pressure: " + weather.getMain().getPressure() + " hPa");
 
         String condition = weather.getWeather()[0].getMain();
 
-        System.out.println("Status: " + condition);
+        System.out.println("Condition: " + condition);
     }
 
     private void waitForEnter(Scanner scanner) {

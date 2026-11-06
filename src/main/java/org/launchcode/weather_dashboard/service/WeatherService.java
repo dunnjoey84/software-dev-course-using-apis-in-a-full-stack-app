@@ -6,21 +6,21 @@ import org.launchcode.weather_dashboard.model.WeatherData;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.HttpClientErrorException;
-
+import org.springframework.beans.factory.annotation.Value;
 
 @Service
 public class WeatherService {
 
     // TODO #4A: Create a new instance of RestTemplate
     private final RestTemplate restTemplate = new RestTemplate();
-
-    private static final String API_KEY = "029b06dc4a98a0d5e88dcaa57ef05fc4";
+    @Value("${weather.api.key}")
+    private String apiKey;
 
     private static final String GEO_URL =
-            "http://api.openweathermap.org/geo/1.0/direct?q={city}&limit=1&appid={key}";
+            "https://api.openweathermap.org/geo/1.0/direct?q={city}&limit=1&appid={key}";
 
     private static final String WEATHER_URL =
-            "http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={key}&units=metric";
+            "https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={key}&units=imperial";
 
     public WeatherData getCurrentWeather(String city) {
         try {
@@ -31,7 +31,7 @@ public class WeatherService {
                     GEO_URL,
                     GeocodeResult[].class,
                     city,
-                    API_KEY
+                    apiKey
             );
 
             if (geoResults == null || geoResults.length == 0) {
@@ -48,7 +48,7 @@ public class WeatherService {
                     WeatherData.class,
                     lat,
                     lon,
-                    API_KEY
+                    apiKey
             );
 
             if (weather == null) {
